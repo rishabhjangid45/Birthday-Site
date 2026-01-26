@@ -9,13 +9,14 @@ import { Heart, MessageCircle, Sparkles } from 'lucide-react'
 interface MessageScreenProps {
   onNext: () => void
   userName: string
+  customMessage?: string
 }
 
-export default function MessageScreen({ onNext, userName }: MessageScreenProps) {
+export default function MessageScreen({ onNext, userName, customMessage }: MessageScreenProps) {
   const [displayedText, setDisplayedText] = useState('')
   const [showButton, setShowButton] = useState(false)
 
-  const fullMessage = `Dear ${userName},
+  const fullMessage = customMessage || `Dear ${userName},
 
 On this special day, I wanted to create something just for you — something that would bring a smile to your face and warmth to your heart.
 

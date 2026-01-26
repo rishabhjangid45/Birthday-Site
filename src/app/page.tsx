@@ -23,6 +23,8 @@ function Home() {
   const name = searchParams.get('name') || 'Birthday Star'
   const code = searchParams.get('code') || ''
   const date = searchParams.get('date') || ''
+  const customMessage = searchParams.get('message') || ''
+  const customLetter = searchParams.get('letter') || ''
 
   // Check if we have required parameters
   const hasValidParams = code && date
@@ -117,6 +119,7 @@ function Home() {
             <MessageScreen
               onNext={handleNext}
               userName={name}
+              customMessage={customMessage}
             />
           )}
           
@@ -130,6 +133,7 @@ function Home() {
           {currentScreen === 'letter' && (
             <FinalLetterScreen
               userName={name}
+              customLetter={customLetter}
             />
           )}
         </motion.div>

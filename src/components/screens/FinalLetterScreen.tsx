@@ -7,12 +7,13 @@ import { Heart, PenTool, Sparkles } from 'lucide-react'
 
 interface FinalLetterScreenProps {
   userName: string
+  customLetter?: string
 }
 
-export default function FinalLetterScreen({ userName }: FinalLetterScreenProps) {
+export default function FinalLetterScreen({ userName, customLetter }: FinalLetterScreenProps) {
   const [isVisible] = useState(true)
 
-  const closingMessage = `My Dearest ${userName},
+  const closingMessage = customLetter || `My Dearest ${userName},
 
 As I sit here writing this final letter, my heart is filled with so much warmth and affection for you. Today, on your birthday, I wanted to create something that would truly express how much you mean to me.
 

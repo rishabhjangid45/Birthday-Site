@@ -5,15 +5,18 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Copy, Check, Heart, Gift, Calendar, Lock, Sparkles } from 'lucide-react'
+import { Copy, Check, Heart, Gift, Calendar, Lock, Sparkles, MessageCircle, PenTool } from 'lucide-react'
 
 export default function AdminPage() {
   const [formData, setFormData] = useState({
     name: '',
     code: '',
     date: '',
-    time: ''
+    time: '',
+    customMessage: '',
+    customLetter: ''
   })
   const [generatedLink, setGeneratedLink] = useState('')
   const [copied, setCopied] = useState(false)
@@ -30,7 +33,16 @@ export default function AdminPage() {
     }
 
     const dateTime = new Date(`${formData.date}T${formData.time}`).toISOString()
-    const link = `${window.location.origin}?name=${encodeURIComponent(formData.name)}&code=${encodeURIComponent(formData.code)}&date=${encodeURIComponent(dateTime)}`
+    let link = `${window.location.origin}?name=${encodeURIComponent(formData.name)}&code=${encodeURIComponent(formData.code)}&date=${encodeURIComponent(dateTime)}`
+
+    if (formData.customMessage) {
+      link += `&message=${encodeURIComponent(formData.customMessage)}`
+    }
+
+    if (formData.customLetter) {
+      link += `&letter=${encodeURIComponent(formData.customLetter)}`
+    }
+
     setGeneratedLink(link)
   }
 
@@ -45,7 +57,7 @@ export default function AdminPage() {
   }
 
   const resetForm = () => {
-    setFormData({ name: '', code: '', date: '', time: '' })
+    setFormData({ name: '', code: '', date: '', time: '', customMessage: '', customLetter: '' })
     setGeneratedLink('')
   }
 
@@ -146,6 +158,38 @@ export default function AdminPage() {
                       value={formData.time}
                       onChange={handleInputChange}
                       className="border-pink-200 focus:border-pink-400 focus:ring-pink-200"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="customMessage" className="text-rose-600 font-medium flex items-center">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Custom Message (Optional)
+                    </Label>
+                    <Textarea
+                      id="customMessage"
+                      name="customMessage"
+                      placeholder="Enter a custom message for the birthday person (leave empty for default)"
+                      value={formData.customMessage}
+                      onChange={handleInputChange}
+                      className="border-pink-200 focus:border-pink-400 focus:ring-pink-200 min-h-[100px]"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="customLetter" className="text-rose-600 font-medium flex items-center">
+                      <PenTool className="w-4 h-4 mr-2" />
+                      Custom Letter (Optional)
+                    </Label>
+                    <Textarea
+                      id="customLetter"
+                      name="customLetter"
+                      placeholder="Enter a custom letter for the birthday person (leave empty for default)"
+                      value={formData.customLetter}
+                      onChange={handleInputChange}
+                      className="border-pink-200 focus:border-pink-400 focus:ring-pink-200 min-h-[150px]"
                     />
                   </div>
                 </div>
