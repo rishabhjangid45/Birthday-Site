@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import PasswordScreen from '@/components/screens/PasswordScreen'
@@ -13,7 +13,7 @@ import AnimatedBackground from '@/components/ui/AnimatedBackground'
 
 type Screen = 'password' | 'countdown' | 'gift' | 'message' | 'surprise' | 'letter'
 
-export default function Home() {
+function Home() {
   const searchParams = useSearchParams()
   const [currentScreen, setCurrentScreen] = useState<Screen>('password')
   const [isUnlocked, setIsUnlocked] = useState(false)
@@ -137,3 +137,12 @@ export default function Home() {
     </div>
   )
 }
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home />
+    </Suspense>
+  )
+}
+
